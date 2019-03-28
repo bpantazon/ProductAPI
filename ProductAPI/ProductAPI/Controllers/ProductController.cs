@@ -31,9 +31,9 @@ namespace ProductAPI.Controllers
         [HttpPost]
         public void Post(CompanyProduct product)
         {       
-                db.CompanyProducts.InsertOnSubmit(product);
+            db.CompanyProducts.InsertOnSubmit(product);
 
-                db.SubmitChanges();         
+            db.SubmitChanges();         
         }
 
         // PUT: api/Product/5
@@ -46,7 +46,10 @@ namespace ProductAPI.Controllers
         // DELETE: api/Product/5
         [HttpDelete]
         public void Delete(int id)
-        {
+        {         
+            var product = db.CompanyProducts.Where(p => p.Product_Id == id).SingleOrDefault();
+            db.CompanyProducts.DeleteOnSubmit(product);
+            db.SubmitChanges();
         }
     }
 }
