@@ -38,9 +38,19 @@ namespace ProductAPI.Controllers
 
         // PUT: api/Product/5
         [HttpPut]
-        public void Put(int id, [FromBody]string value)
+        public void Put(int id, CompanyProduct product)
         {
+            var editedProduct = db.CompanyProducts.Where(p => p.Product_Id == id).SingleOrDefault();
+            editedProduct.BrandName = product.BrandName;
+            editedProduct.ModelName = product.ModelName;
+            editedProduct.SKU = product.SKU;
+            editedProduct.Price = product.Price;
+            editedProduct.Category = product.Category;
+            editedProduct.Feature1 = product.Feature1;
+            editedProduct.Feature2 = product.Feature2;
+            editedProduct.Summary = product.Summary;
 
+            db.SubmitChanges();
         }
 
         // DELETE: api/Product/5
